@@ -1,31 +1,49 @@
-let pregunta = prompt("¿Cuál es tu color favorito?: \n A) El Rojo \n B) El Azul \n C) El Verde").toUpperCase();
+let pregunta = prompt("Que genero de pelicula te gusta mas?: \n A) Animacion \n B) Terror \n C) Comedia \n D) Accion \n E) Musicales \n F) Peliculas disponibles").toUpperCase();
+
+const peliculas = [
+    {
+        nombre:"Intensamente",
+        genero:"Animacion",
+        anio: 2015,
+    },
+    {
+        nombre:"Saw",
+        genero:"Terror",
+        anio: 2004,
+    },
+    {
+        nombre:"Kung Fu Panda",
+        genero:"Comedia",
+        anio: 2008,
+    },
+    {
+        nombre:"Tomb Raider",
+        genero:"Accion",
+        anio: 2001,
+    },    
+    {
+        nombre:"Wonka",
+        genero:"Musicales",
+        anio: 2023,
+    },
+]
 
 if (pregunta === "A") {
-    alert("Furioso como el fuego");
+    console.log(peliculas[0]);
 } else if (pregunta === "B") {
-    alert("Tranquilo como el mar");
+    console.log(peliculas[1]);
 } else if (pregunta === "C") {
-    alert("Revoltoso como la naturaleza");
+    console.log(peliculas[2]);
+} else if (pregunta === "D"){
+    console.log(peliculas[3]);
+} else if (pregunta === "E") {
+    console.log(peliculas[4]);
+} else if (pregunta === "F"){
+    console.log(peliculas);
 } else {
     alert("Ingresa una opción correcta, por favor.");
 }
 
-function sumarNumeros() {
-    let numero = parseInt(prompt("Por favor ingrese un número POSITIVO para hacer la suma:"));
-
-    while (isNaN(numero) || numero <= 0) {
-        numero = parseInt(prompt("Ingresa un número válido y positivo, por favor:"));
-    }
-
-    let suma = 0;
-    for (let i = 1; i <= numero; i++) {
-        suma += i;
-    }
-
-    alert("La suma de los números del 1 al " + numero + " es: " + suma);
-}
-
-sumarNumeros();
 
 
 

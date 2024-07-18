@@ -1,85 +1,91 @@
 const peliculas = [
     {
-        titulo:"Intensamente",
-        genero:"Animacion",
+        titulo: "Intensamente",
+        genero: "Animacion",
         anio: 2015,
     },
     {
-        titulo:"Elementos",
-        genero:"Animacion",
+        titulo: "Elementos",
+        genero: "Animacion",
         anio: 2023
     },
     {
-        titulo:"Saw",
-        genero:"Terror",
+        titulo: "Saw",
+        genero: "Terror",
         anio: 2004,
     },
     {
-        titulo:"La noche del demonio",
-        genero:"Terror",
+        titulo: "La noche del demonio",
+        genero: "Terror",
         anio: 2010
     },
     {
-        titulo:"Kung Fu Panda",
-        genero:"Comedia",
+        titulo: "Kung Fu Panda",
+        genero: "Comedia",
         anio: 2008,
     },
     {
-        titulo:"¿Y donde estan las rubias?",
-        genero:"Comedia",
+        titulo: "¿Y donde estan las rubias?",
+        genero: "Comedia",
         anio: 2004
     },
     {
-        titulo:"Tomb Raider",
-        genero:"Accion",
+        titulo: "Tomb Raider",
+        genero: "Accion",
         anio: 2001,
-    },    
+    },
     {
-        titulo:"Los vengadores",
-        genero:"Accion",
+        titulo: "Los vengadores",
+        genero: "Accion",
         anio: 2012
     },
     {
-        titulo:"Wonka",
-        genero:"Musicales",
+        titulo: "Wonka",
+        genero: "Musicales",
         anio: 2023,
     },
     {
-        titulo:"La la land",
-        genero:"Musicales",
+        titulo: "La la land",
+        genero: "Musicales",
         anio: 2016
     }
-]
+];
 
-let genero = prompt("Que genero de pelicula te gusta mas?: \n A) Animacion \n B) Terror \n C) Comedia \n D) Accion \n E) Musicales \n F) Peliculas disponibles").toUpperCase();
-
-switch (genero) {
-    case "A":
-        genero = "Animacion"
-        break;
-    case "B":
-        genero = "Terror"
-        break;
-    case "C":
-        genero = "Comedia"
-        break;
-    case "D":
-        genero = "Accion"
-        break;
-    case "E":
-        genero = "Musicales"
-        break;
-    case "F":
-        genero = "Peliculas Disponibles"
-        break;
-    default:
-        genero = ""
-        break;
+function mostrarPeliculas(generoSeleccionado) {
+    peliculas.filter((pelicula) => {
+        if (pelicula.genero === generoSeleccionado) {
+            console.log(`${pelicula.titulo} es una película del género ${pelicula.genero} estrenada en el año ${pelicula.anio}`);
+        }
+    });
 }
 
-peliculas.filter ((elemento) => {
-    if(elemento.genero === genero)
-        console.log(elemento.titulo + " " + "es una pelicula del genero de" + " " + elemento.genero + " " + "estrenada en el año" + " " + elemento.anio );
-})
+
+let opcion = prompt("¿Qué género de película te gusta más?\nA) Animacion\nB) Terror\nC) Comedia\nD) Accion\nE) Musicales\nF) Películas disponibles").toUpperCase();
 
 
+switch (opcion) {
+    case "A":
+        mostrarPeliculas("Animacion"); 
+        break;
+    case "B":
+        mostrarPeliculas("Terror"); 
+        break;
+    case "C":
+        mostrarPeliculas("Comedia"); 
+        break;
+    case "D":
+        mostrarPeliculas("Accion"); 
+        break;
+    case "E":
+        mostrarPeliculas("Musicales"); 
+        break;
+    case "F":
+        console.log("Películas disponibles:");
+        peliculas.forEach((pelicula) => {
+            console.log(`${pelicula.titulo} - ${pelicula.genero} (${pelicula.anio})`);
+        });
+        break;
+    default:
+        console.log("Ingresa una opción válida");
+        break;
+}

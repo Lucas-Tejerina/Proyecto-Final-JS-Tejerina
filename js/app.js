@@ -1,5 +1,3 @@
-let pregunta = prompt("Que genero de pelicula te gusta mas?: \n A) Animacion \n B) Terror \n C) Comedia \n D) Accion \n E) Musicales \n F) Peliculas disponibles").toUpperCase();
-
 const peliculas = [
     {
         nombre:"Intensamente",
@@ -28,22 +26,31 @@ const peliculas = [
     },
 ]
 
-if (pregunta === "A") {
-    console.log(peliculas[0]);
-} else if (pregunta === "B") {
-    console.log(peliculas[1]);
-} else if (pregunta === "C") {
-    console.log(peliculas[2]);
-} else if (pregunta === "D"){
-    console.log(peliculas[3]);
-} else if (pregunta === "E") {
-    console.log(peliculas[4]);
-} else if (pregunta === "F"){
-    console.log(peliculas);
-} else {
-    alert("Ingresa una opción correcta, por favor.");
-}
+let genero = prompt("Que genero de pelicula te gusta mas?: \n A) Animacion \n B) Terror \n C) Comedia \n D) Accion \n E) Musicales \n F) Peliculas disponibles").toUpperCase();
 
+switch (genero) {
+    case "A":
+        genero = "Animacion"
+        break;
+    case "B":
+        genero = "Terror"
+        break;
+    case "C":
+        genero = "Comedia"
+        break;
+    case "D":
+        genero = "Accion"
+        break;
+    case "E":
+        genero = "Musicales"
+        break;
+    case "F":
+        genero = "Peliculas Disponibles"
+        break;
+    default:
+        genero = ""
+        break;
+}
 
 
 

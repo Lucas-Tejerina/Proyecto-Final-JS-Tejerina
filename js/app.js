@@ -19,4 +19,14 @@ const peliculas = [
     new Peliculas("La la land", "Musicales", 2016)
 ];
 
+const generos = document.querySelectorAll(".btn-genero");
+const movies = document.querySelector(".btn-all");
+const lista = document.querySelector("#movie-list");
+const favoritas = document.querySelector("#movie-fav");
+
+let movieFavs = JSON.parse(localStorage.getItem("movieFavs")) || [];
+
+
+
+
 

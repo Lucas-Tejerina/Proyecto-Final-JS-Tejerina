@@ -12,20 +12,40 @@ body {
     text-align: center;
 }
 
-.tablero {
-    border: 2px solid red;
-    max-width: 1200px;
-    text-align: center;
-    margin: auto;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.card {
+button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+}
+
+
+.container {
     border: 2px solid magenta;
-    height: 200px;
-    width: 200px;
-    border-radius: 20px;
+    max-width: 900px;
+    align-items: center;
+    margin: auto;
+    background-color: #ffffff;
+    margin-top: 30px;
+}
+
+h1 {
+    margin: 30px auto;
 }

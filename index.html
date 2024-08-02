@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript</title>
+    <title>Lista de Películas</title>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <main>
-        <div class="container">
-            <h1>Lista de Peliculas por Genero</h1>
-            <div class="opciones">
-                <button class="btn-genero">Animacion</button>
-                <button class="btn-genero">Terror</button>
-                <button class="btn-genero">Comedia</button>
-                <button class="btn-genero">Accion</button>
-                <button class="btn-genero">Musicales</button>
-                <button class="btn-all">Todas las Peliculas</button>
-            </div>
-            <ul id="movie-list"></ul>
-            <h2>Peliculas Favoritas</h2>
-            <ul id="movie-fav"></ul>
+    <div class="container">
+        <h1>Lista de Películas por Género</h1>
+        <div class="options">
+            <button class="genre-btn" data-genre="Animacion">Animación</button>
+            <button class="genre-btn" data-genre="Terror">Terror</button>
+            <button class="genre-btn" data-genre="Comedia">Comedia</button>
+            <button class="genre-btn" data-genre="Accion">Acción</button>
+            <button class="genre-btn" data-genre="Musicales">Musicales</button>
+            <button id="all-movies-btn">Todas las Películas</button>
         </div>
-    </main>
+        <ul id="movies-list" class="movies-list">
+        </ul>
+        <h2>Películas Favoritas</h2>
+        <ul id="favorites-list" class="favorites-list">
+        </ul>
+    </div>
+    
+
     <script src="./js/app.js"></script>
 </body>
 </html>

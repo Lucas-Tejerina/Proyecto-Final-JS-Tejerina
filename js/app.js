@@ -19,14 +19,80 @@ const peliculas = [
     new Peliculas("La la land", "Musicales", 2016)
 ];
 
-const generos = document.querySelectorAll(".btn-genero");
-const movies = document.querySelector(".btn-all");
-const lista = document.querySelector("#movie-list");
-const favoritas = document.querySelector("#movie-fav");
+const moviesList = document.getElementById('movies-list');
+const favoritesList = document.getElementById('favorites-list');
+const genreButtons = document.querySelectorAll('.genre-btn');
+const allMoviesBtn = document.getElementById('all-movies-btn');
 
-let movieFavs = JSON.parse(localStorage.getItem("movieFavs")) || [];
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+function mostrarPeliculas(generoSeleccionado) {
+    moviesList.innerHTML = '';
+
+    const peliculasFiltradas = peliculas.filter((pelicula) => {
+        return pelicula.genero === generoSeleccionado;
+    });
+
+    peliculasFiltradas.forEach((pelicula) => {
+        const li = document.createElement('li');
+        li.textContent = `${pelicula.titulo} - ${pelicula.genero} (${pelicula.anio})`;
+        const favBtn = document.createElement('button');
+        favBtn.textContent = 'Agregar a Favoritos';
+        favBtn.addEventListener('click', () => agregarAFavoritos(pelicula));
+        li.appendChild(favBtn);
+        moviesList.appendChild(li);
+    });
+}
+
+function mostrarFavoritos() {
+    favoritesList.innerHTML = '';
+
+    favorites.forEach((pelicula) => {
+        const li = document.createElement('li');
+        li.textContent = `${pelicula.titulo} - ${pelicula.genero} (${pelicula.anio})`;
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Eliminar';
+        removeBtn.addEventListener('click', () => eliminarDeFavoritos(pelicula));
+        li.appendChild(removeBtn);
+        favoritesList.appendChild(li);
+    });
+}
+
+function agregarAFavoritos(pelicula) {
+    if (!favorites.some(fav => fav.titulo === pelicula.titulo)) {
+        favorites.push(pelicula);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        mostrarFavoritos();
+    }
+}
+
+function eliminarDeFavoritos(pelicula) {
+    favorites = favorites.filter(fav => fav.titulo !== pelicula.titulo);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    mostrarFavoritos();
+}
+
+genreButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const genero = button.getAttribute('data-genre');
+        mostrarPeliculas(genero);
+    });
+});
+
+allMoviesBtn.addEventListener('click', () => {
+    moviesList.innerHTML = '';
+    peliculas.forEach((pelicula) => {
+        const li = document.createElement('li');
+        li.textContent = `${pelicula.titulo} - ${pelicula.genero} (${pelicula.anio})`;
+        const favBtn = document.createElement('button');
+        favBtn.textContent = 'Agregar a Favoritos';
+        favBtn.addEventListener('click', () => agregarAFavoritos(pelicula));
+        li.appendChild(favBtn);
+        moviesList.appendChild(li);
+    });
+});
 
 
-
+mostrarFavoritos();
 
 

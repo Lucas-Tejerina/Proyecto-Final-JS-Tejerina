@@ -1,1 +1,1 @@
-# PreEntrega2-Tejerina
+# Proyecto-Final-JS-Tejerina

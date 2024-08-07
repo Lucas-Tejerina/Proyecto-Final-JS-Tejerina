@@ -7,25 +7,91 @@
 body {
     background-image: url(./../img/bg.webp);
     background-position: center;
-    background-size: cover;
     background-attachment: fixed;
-    text-align: center;
+    background-size: cover;
 }
 
-.tablero {
-    border: 2px solid red;
-    max-width: 1200px;
-    text-align: center;
-    margin: auto;
-    height: auto;
+section {
+    max-width: 850px;
+    margin: 100px auto;
+    max-height: auto;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    flex-direction: column;
+    text-align: center;
+    font-size: 40px;
+    border-radius: 10px;
+    backdrop-filter: blur(1rem);
+    box-shadow: 0 1rem 1rem;
+}
+
+h1 {
+    margin: 20px 0;
+    color: #fff;
+}
+
+input {
+    margin: 20px auto;
+    font-size: 35px;
+    max-width: 500px;
+    border-radius: 15px;
+}
+
+label {
+    color: #fff;
+}
+
+button {
+    border: 0 solid rgba(100,100,100,0.1);
+    padding: 20px;
+    width: 250px;
+    font-family: sans-serif;
+    font-size: 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    background-size: 200%;
+    background-image: linear-gradient(to left, #0067DA, #161569,#0007DA);
+    margin: 20px auto;
+}
+
+button:hover {
+    background-position: right;
+}
+
+.section-list {
+    border: 2px solid blue;
+    background-color: rgba(255, 255, 255, 0.2);
+    height: 400px;
+    width: 25%;
+}
+
+.section-tablero {
+    border: 2px solid red;
+    width: 850px;
+    margin-top: 20px;
+}
+
+.section-estadisticas {
+    border: 2px solid green;
+}
+
+.container-game {
+    border: 2px solid black;
+    display: flex;
 }
 
 .card {
-    border: 2px solid magenta;
-    height: 200px;
-    width: 200px;
-    border-radius: 20px;
+    width: 180px;
+    height: 180px;
+    background-image: url(./../img/card.webp);
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+}
+
+.container-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 10px ;
 }

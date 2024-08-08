@@ -24,80 +24,57 @@ let aciertos = 0;
 
 tarjetas = tarjetas.sort(() => Math.random() - 0.5);
 
-const cardVolteada = document.querySelectorAll('.card');
+const cardVolteadas = document.querySelectorAll('.card');
+
 cardVolteadas.forEach(card => {
     card.addEventListener('click', function() {
         voltear(this);
     });
 });
 
-function voltear (id){
-    
-    tarjetaVolteada++;
+function voltear(carta) {
+    const id = carta.id;
 
-    if(tarjetaVolteada == 1){
-        tarjeta1 = document.getElementById(id);
+    if (tarjetaVolteada === 0) {
+        tarjetaVolteada = 1;
+        tarjeta1 = carta;
         primerResultado = tarjetas[id];
         tarjeta1.innerHTML = `<img src="${primerResultado}" alt="Imagen 1">`;
         tarjeta1.disabled = true;
-    }else if(tarjetaVolteada == 2) {
-        tarjeta2 = document.getElementById(id);
+    } else if (tarjetaVolteada === 1) {
+        tarjetaVolteada = 2;
+        tarjeta2 = carta;
         segundoResultado = tarjetas[id];
         tarjeta2.innerHTML = `<img src="${segundoResultado}" alt="Imagen 2">`;
         tarjeta2.disabled = true;
+
+        setTimeout(comparacion, 800);
+    }
+}
+
+function comparacion() {
+    if (primerResultado === segundoResultado) {
+        aciertos++;
+        if(aciertos === 6){
+            alert("Victoria")
+        }
+    } else {
+        tarjeta1.innerHTML = '';
+        tarjeta2.innerHTML = '';
+        tarjeta1.disabled = false;
+        tarjeta2.disabled = false;
+    }
+
+    tarjetaVolteada = 0;
+}
+
+function victoria(){
+    if(aciertos === 2){
+        alert("Victoria")
     }
 }
 
 
-function 
-
-// tarjetas = tarjetas.sort(()=>{return Math.random () -0.5});
-// console.log(tarjetas);
-
-
-
-
-/* Funcionamiento del Boton Reiniciar*/
-
-const botonReiniciar = document.querySelector('.section-btn button');
-
-botonReiniciar.addEventListener('click', reiniciarCards);
-
-function reiniciarCards() {
-    tarjetas = tarjetas.sort(()=>{return Math.random () -0.5});
-}
-
-
-
-/* Voltear Cartas */
-
-const cardVolteadas = document.querySelectorAll('.card');
-
-cardVolteadas.forEach(card => {
-    card.addEventListener('click', voltear);
-});
-
-function voltear(e) {
-    cartasVolteadas++;
-    console.log(e.target.id);
-
-    if (cartasVolteadas == 1){
-        card1 = document.getElementById(id);
-        card1.innerHTML = tarjetas[id];
-
-    }
-}
-
-
-
-// const card = document.querySelectorAll('div');
-// const botonReiniciar = document.querySelector('.section-btn button');
-
-// function r
-
-// card.forEach(cards => {
-//     cards.addEventListener('click', destapar)
-// })
 
 
 

@@ -1,19 +1,9 @@
-let tarjetas = [
-    './../img/erza.webp',
-    './../img/erza.webp',
-    './../img/gray.webp',
-    './../img/gray.webp',
-    './../img/happy.webp',
-    './../img/happy.webp',
-    './../img/lucy.webp',
-    './../img/lucy.webp',
-    './../img/natsu.webp',
-    './../img/natsu.webp',
-    './../img/wendy.webp',
-    './../img/wendy.webp'
-];
+let tarjetas = []
 
-/*    Variables    */
+fetch("./../data/data.json").then((data)=>
+    data
+).then(data=> console.log(data))
+
 
 let tarjetaVolteada = 0;
 let tarjeta1 = null;
@@ -21,6 +11,8 @@ let tarjeta2 = null;
 let primerResultado = null;
 let segundoResultado = null;
 let aciertos = 0;
+
+
 
 tarjetas = tarjetas.sort(() => Math.random() - 0.5);
 
@@ -68,11 +60,6 @@ function comparacion() {
     tarjetaVolteada = 0;
 }
 
-function victoria(){
-    if(aciertos === 2){
-        alert("Victoria")
-    }
-}
 
 
 

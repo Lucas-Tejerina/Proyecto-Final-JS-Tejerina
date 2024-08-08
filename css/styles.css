@@ -1,15 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-image: url(./../img/bg.webp);
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
+
 }
 
-section {
+.section-login {
     max-width: 900px;
     margin: 200px auto;
-    max-height: auto;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -55,12 +61,13 @@ button:hover {
 
 .container-cards {
     text-align: center;
-    max-width: 900px;
-    margin: 10px auto;
+    width: 900px;
+    margin: 10px 20px;
     border-radius: 10px;
     backdrop-filter: blur(1rem);
     box-shadow: 0 1rem 1rem;
     padding: 20px;
+    border: 2px solid magenta;
 }
 
 .title h1 {
@@ -70,8 +77,9 @@ button:hover {
 
 .cards {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin: 10px auto;
+    gap: 10px;
 }
 
 .card {
@@ -93,6 +101,16 @@ button:hover {
     height: 90%;
     object-fit: cover;
 }
+
+.section-estadisticas {
+    width: 500px;
+    border: 2px solid red;
+    height: auto;
+}
+.container {
+    display: flex;
+}
+
 
 
 

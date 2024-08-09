@@ -12,7 +12,12 @@ let tarjeta2 = null;
 let primerResultado = null;
 let segundoResultado = null;
 let aciertos = 0;
+let tiempo = 30;
+let temporizador = false;
+let tiempoRestanteId = null;
 
+let mostrarAciertos = document.getElementById('aciertos');
+let mostrarTiempo = document.getElementById('time');
 
 document.getElementById('btn-reinicio').addEventListener('click', btnReinicio);
 
@@ -31,9 +36,9 @@ function btnReinicio() {
     primerResultado = null;
     segundoResultado = null;
     aciertos = 0;
-
-    document.querySelector('.section-estadisticas div:nth-child(1)').textContent = 'Aciertos: 0/6';
-    document.querySelector('.section-estadisticas div:nth-child(2)').textContent = 'Tiempo: 30seg';
+    
+    // document.querySelector('.section-estadisticas div:nth-child(1)').textContent = 'Aciertos: 0/6';
+    // document.querySelector('.section-estadisticas div:nth-child(2)').textContent = 'Tiempo: 30seg';
 }
 
 
@@ -45,7 +50,26 @@ cardVolteadas.forEach(card => {
     });
 });
 
+function iniciarTiempo(){
+    tiempoRestanteId = setInterval(()=>{
+    tiempo--;
+    mostrarTiempo.innerHTML = `Tiempo: ${tiempo} seg.`;
+
+    if(tiempo == 0){
+        clearInterval(tiempoRestanteId);
+        alert("Perdiste!");
+    }
+
+    },1000)
+}
+
 function voltear(carta) {
+
+    if(temporizador == false){
+        iniciarTiempo();
+        temporizador = true;
+    }
+
     const id = carta.id;
 
     if (tarjetaVolteada === 0) {
@@ -68,6 +92,7 @@ function voltear(carta) {
 function comparacion() {
     if (primerResultado === segundoResultado) {
         aciertos++;
+        mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`
         if(aciertos === 6){
             alert("Victoria")
         }

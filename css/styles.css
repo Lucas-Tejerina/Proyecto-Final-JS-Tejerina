@@ -114,8 +114,7 @@ button:hover {
     text-align: center;
     font-size: 30px;
     border-radius: 10px;
-    backdrop-filter: blur(1rem);
-    box-shadow: 0 1rem 1rem;
+
 }
 .container {
     display: flex;
@@ -130,6 +129,13 @@ h2 {
 .div-est {
     margin: 10px auto;
     color: #fff;
+}
+
+h3{
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 

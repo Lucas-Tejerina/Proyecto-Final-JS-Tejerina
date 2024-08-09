@@ -62,7 +62,7 @@ button:hover {
 .container-cards {
     text-align: center;
     width: 900px;
-    margin: 10px 20px;
+    margin: 10px 0 0 20px;
     border-radius: 10px;
     backdrop-filter: blur(1rem);
     box-shadow: 0 1rem 1rem;
@@ -73,6 +73,8 @@ button:hover {
 .title h1 {
     font-size: 60px;
     color: white;
+    margin: 5px auto;
+    border: 2px solid green;
 }
 
 .cards {
@@ -103,14 +105,31 @@ button:hover {
 }
 
 .section-estadisticas {
-    width: 500px;
+    width: 400px;
+    height: 320px;
     border: 2px solid red;
-    height: auto;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 10px;
+    backdrop-filter: blur(1rem);
+    box-shadow: 0 1rem 1rem;
 }
 .container {
     display: flex;
 }
 
+h2 {
+    margin: 20px auto;
+    color: #fff;
+}
 
+
+.div-est {
+    margin: 10px auto;
+    color: #fff;
+}
 
 

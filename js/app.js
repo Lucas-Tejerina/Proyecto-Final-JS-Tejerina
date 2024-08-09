@@ -35,10 +35,14 @@ function btnReinicio() {
     tarjeta2 = null;
     primerResultado = null;
     segundoResultado = null;
+
+    clearInterval(tiempoRestanteId);
+    tiempo = 30;
+    mostrarTiempo.innerHTML = `Tiempo: ${tiempo} seg.`;
+    temporizador = false;
+
     aciertos = 0;
-    
-    // document.querySelector('.section-estadisticas div:nth-child(1)').textContent = 'Aciertos: 0/6';
-    // document.querySelector('.section-estadisticas div:nth-child(2)').textContent = 'Tiempo: 30seg';
+    mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`;
 }
 
 

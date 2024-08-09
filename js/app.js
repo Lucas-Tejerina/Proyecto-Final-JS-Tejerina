@@ -1,8 +1,9 @@
 let tarjetas = []
 
 fetch("./../data/data.json").then((data)=>
-    data
-).then(data=> console.log(data))
+    data.json()
+).then(data=> tarjetas = data.sort(() => Math.random() - 0.5)).catch(()=> console.log("error al conseguir los datos")
+)
 
 
 let tarjetaVolteada = 0;
@@ -13,8 +14,15 @@ let segundoResultado = null;
 let aciertos = 0;
 
 
+function btnReinicio(){
+    tarjetas = tarjetas.sort(() => Math.random() - 0.5)
+}
 
-tarjetas = tarjetas.sort(() => Math.random() - 0.5);
+document.getElementById('#btn-reinicio').addEventListener('click', btnReinicio)
+
+
+
+// tarjetas = tarjetas.sort(() => Math.random() - 0.5);
 
 const cardVolteadas = document.querySelectorAll('.card');
 

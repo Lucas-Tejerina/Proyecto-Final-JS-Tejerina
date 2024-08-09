@@ -1,9 +1,9 @@
 let tarjetas = []
 
-fetch("./../data/data.json").then((data)=>
-    data.json()
-).then(data=> tarjetas = data.sort(() => Math.random() - 0.5)).catch(()=> console.log("error al conseguir los datos")
-)
+fetch("./../data/data.json")
+.then((data)=>data.json())
+.then(data=> tarjetas = data.sort(() => Math.random() - 0.5))
+.catch(()=> console.log("error al conseguir los datos"))
 
 
 let tarjetaVolteada = 0;
@@ -14,15 +14,28 @@ let segundoResultado = null;
 let aciertos = 0;
 
 
-function btnReinicio(){
-    tarjetas = tarjetas.sort(() => Math.random() - 0.5)
+document.getElementById('btn-reinicio').addEventListener('click', btnReinicio);
+
+function btnReinicio() {
+    tarjetas = tarjetas.sort(() => Math.random() - 0.5);
+
+    const cardVolteadas = document.querySelectorAll('.card');
+    cardVolteadas.forEach(card => {
+        card.innerHTML = '';
+        card.disabled = false;
+    });
+
+    tarjetaVolteada = 0;
+    tarjeta1 = null;
+    tarjeta2 = null;
+    primerResultado = null;
+    segundoResultado = null;
+    aciertos = 0;
+
+    document.querySelector('.section-estadisticas div:nth-child(1)').textContent = 'Aciertos: 0/6';
+    document.querySelector('.section-estadisticas div:nth-child(2)').textContent = 'Tiempo: 30seg';
 }
 
-document.getElementById('#btn-reinicio').addEventListener('click', btnReinicio)
-
-
-
-// tarjetas = tarjetas.sort(() => Math.random() - 0.5);
 
 const cardVolteadas = document.querySelectorAll('.card');
 

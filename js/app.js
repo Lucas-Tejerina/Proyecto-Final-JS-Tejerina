@@ -5,7 +5,6 @@ fetch("./../data/data.json")
 .then(data=> tarjetas = data.sort(() => Math.random() - 0.5))
 .catch(()=> console.log("error al conseguir los datos"))
 
-
 let tarjetaVolteada = 0;
 let tarjeta1 = null;
 let tarjeta2 = null;
@@ -15,9 +14,11 @@ let aciertos = 0;
 let tiempo = 30;
 let temporizador = false;
 let tiempoRestanteId = null;
+const maxLista = 5;
 
 let mostrarAciertos = document.getElementById('aciertos');
 let mostrarTiempo = document.getElementById('time');
+const cardVolteadas = document.querySelectorAll('.card');
 
 document.getElementById('btn-reinicio').addEventListener('click', btnReinicio);
 
@@ -40,13 +41,10 @@ function btnReinicio() {
     tiempo = 30;
     mostrarTiempo.innerHTML = `Tiempo: ${tiempo} seg.`;
     temporizador = false;
-
     aciertos = 0;
     mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`;
 }
 
-
-const cardVolteadas = document.querySelectorAll('.card');
 
 cardVolteadas.forEach(card => {
     card.addEventListener('click', function() {
@@ -96,9 +94,20 @@ function voltear(carta) {
 function comparacion() {
     if (primerResultado === segundoResultado) {
         aciertos++;
-        mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`
-        if(aciertos === 6){
-            alert("Victoria")
+        mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`;
+        if (aciertos === 6) {
+            alert("Victoria");
+            clearInterval(tiempoRestanteId);
+            const userName = sessionStorage.getItem('user');
+            if (userName) {
+                let historial = JSON.parse(sessionStorage.getItem('historial')) || [];
+                historial.push({ name: userName, score: aciertos, time: tiempo });
+                if (historial.length > maxLista) {
+                    historial.shift();
+                }
+                sessionStorage.setItem('historial', JSON.stringify(historial));
+                mostrarHistorial()
+            }
         }
     } else {
         tarjeta1.innerHTML = '';
@@ -109,6 +118,22 @@ function comparacion() {
 
     tarjetaVolteada = 0;
 }
+
+function mostrarHistorial() {
+    const ulElement = document.querySelector('section.sect2 ul');
+
+    let historial = JSON.parse(sessionStorage.getItem('historial')) || [];
+    ulElement.innerHTML = '';
+
+    historial.forEach(entry => {
+        const li = document.createElement('li');
+        li.textContent = `Felicitaciones: ${entry.name}, lo lograste en: ${entry.time} seg`;
+        ulElement.appendChild(li);
+    });
+}
+
+
+
 
 
 

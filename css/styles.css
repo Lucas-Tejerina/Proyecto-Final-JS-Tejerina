@@ -10,7 +10,6 @@ body {
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
-
 }
 
 .section-login {
@@ -105,15 +104,18 @@ button:hover {
 }
 
 .section-estadisticas {
-    width: 400px;
+    width: 500px;
     height: 320px;
     border: 2px solid red;
-    margin: 10px 0;
+    margin: 10px auto;
     display: flex;
     flex-direction: column;
     text-align: center;
     font-size: 30px;
     border-radius: 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(1rem);
+    box-shadow: 0 1rem 1rem;
 
 }
 .container {
@@ -129,6 +131,7 @@ h2 {
 .div-est {
     margin: 10px auto;
     color: #fff;
+    
 }
 
 h3{
@@ -138,4 +141,33 @@ h3{
     margin-top: 20px;
 }
 
+.sect {
+    border: 2px solid blue; 
+    width: 700px;
+    margin: 10px auto;
+    border-radius: 10px;
+    backdrop-filter: blur(1rem);
+    box-shadow: 0 1rem 1rem;
+}
+
+.sect2 {
+    border-radius: 10px;
+    backdrop-filter: blur(1rem);
+    box-shadow: 0 1rem 1rem;
+    margin: 40px auto;
+    border: 2px solid yellow;
+}
+
+li {
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    margin: 15px;
+    list-style: none;
+}
+
+ul {
+    margin-top: 20px;
+    border: 2px solid black;
+}
 

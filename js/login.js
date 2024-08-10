@@ -15,9 +15,12 @@ function redireccionar() {
             return;
         }
     }
-    
+    let names = JSON.parse(sessionStorage.getItem('names')) || [];
+    names.push(userInput);
+    sessionStorage.setItem('names', JSON.stringify(names));
     window.location.href = "/pages/juego.html";
 }
+
 
 
 

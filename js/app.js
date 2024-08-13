@@ -105,11 +105,11 @@ function comparacion() {
     if (primerResultado === segundoResultado) {
         aciertos++;
         mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`;
-        if (aciertos === 1) {
+        if (aciertos === 6) {
             Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "✨¡Felicitaciones, has ganado!✨",
+                title: "✨¡Felicitaciones, ganaste!✨",
                 showConfirmButton: false,
                 timer: 1500
             });

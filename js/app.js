@@ -22,26 +22,24 @@ let mostrarAciertos = document.getElementById('aciertos');
 let mostrarTiempo = document.getElementById('time');
 const cardVolteadas = document.querySelectorAll('.card');
 
-document.getElementById('btn-reinicio').addEventListener('click', btnReinicio);
+document.getElementById('reset').addEventListener('click', reset);
 
 mostrarHistorial();
 
 /* Boton de Reinicio */
 
-function btnReinicio() {
+function reset() {
     tarjetas = tarjetas.sort(() => Math.random() - 0.5);
     cardVolteadas.forEach(card => {
         card.innerHTML = '';
         card.disabled = false;
         card.style.pointerEvents = 'unset'
     });
-
     tarjetaVolteada = 0;
     tarjeta1 = null;
     tarjeta2 = null;
     primerResultado = null;
     segundoResultado = null;
-
     clearInterval(tiempoRestanteId);
     tiempo = 30;
     mostrarTiempo.innerHTML = `Tiempo: ${tiempo} seg.`;
@@ -59,14 +57,11 @@ cardVolteadas.forEach(card => {
 });
 
 function voltear(carta) {
-
     if(temporizador == false){
         iniciarTiempo();
         temporizador = true;
     }
-
     const id = carta.id;
-
     if (tarjetaVolteada === 0) {
         tarjetaVolteada = 1;
         tarjeta1 = carta;
@@ -81,7 +76,7 @@ function voltear(carta) {
         tarjeta2.innerHTML = `<img src="${segundoResultado}" alt="Imagen 2">`;
         tarjeta2.disabled = true;
         tarjeta2.style.pointerEvents = 'none';
-        setTimeout(comparacion, 800);
+        setTimeout(comparacion, 400);
     }
 }
 
@@ -91,7 +86,6 @@ function iniciarTiempo(){
     tiempoRestanteId = setInterval(()=>{
     tiempo--;
     mostrarTiempo.innerHTML = `Tiempo: ${tiempo} seg.`;
-
     if(tiempo == 0){
         clearInterval(tiempoRestanteId);
         Swal.fire({
@@ -125,12 +119,9 @@ function comparacion() {
                 let historial = JSON.parse(localStorage.getItem('historial')) || [];
                 historial = actualizarHistorial(historial, { name: userName, score: aciertos, time: 30 - tiempo });
                 localStorage.setItem('historial', JSON.stringify(historial));
-                
                 mostrarHistorial()
-                
             }
-
-            btnReinicio()
+            reset()
         }
     } else {
         tarjeta1.innerHTML = '';
@@ -139,24 +130,19 @@ function comparacion() {
         tarjeta2.disabled = false;
         tarjeta1.style.pointerEvents = 'unset'
         tarjeta2.style.pointerEvents = 'unset'
-
     }
-
     tarjetaVolteada = 0;
 }
-
 
 /* Historial de jugadores*/
 
 function mostrarHistorial() {
     const ulElement = document.querySelector('.section__scores ul');
-
     let historial = JSON.parse(localStorage.getItem('historial')) || [];
     ulElement.innerHTML = '';
-
     historial.forEach(entry => {
         const li = document.createElement('li');
-        li.textContent = `¡Felicitaciones, ${entry.name}! Lo lograste en: ${entry.time} seg`;
+        li.textContent = `${entry.name} tardó ${entry.time} seg`;
         ulElement.appendChild(li);
     });
 }

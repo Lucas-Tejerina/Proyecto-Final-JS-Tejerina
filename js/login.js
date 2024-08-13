@@ -7,7 +7,6 @@ if(btnLogin){
 
 function redireccionar() {
     const userInput = document.getElementById('user').value.trim();
-
     if (userInput === "") {
         Swal.fire({
             position: "center",
@@ -18,7 +17,6 @@ function redireccionar() {
         });
         return;
     }
-
     for (let i = 0; i < userInput.length; i++) {
         const verificacion = userInput[i];
         if (!isNaN(verificacion) && verificacion !== ' ') {

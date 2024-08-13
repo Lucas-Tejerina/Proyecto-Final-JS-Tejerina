@@ -105,7 +105,7 @@ function comparacion() {
     if (primerResultado === segundoResultado) {
         aciertos++;
         mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`;
-        if (aciertos === 6) {
+        if (aciertos === 1) {
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -140,7 +140,7 @@ function mostrarHistorial() {
     const ulElement = document.querySelector('.section__scores ul');
     let historial = JSON.parse(localStorage.getItem('historial')) || [];
     ulElement.innerHTML = '';
-    historial.forEach(entry => {
+    historial.slice(0, maxLista).forEach(entry => {
         const li = document.createElement('li');
         li.textContent = `${entry.name} tardó ${entry.time} seg`;
         ulElement.appendChild(li);
@@ -152,16 +152,12 @@ function actualizarHistorial(historial, nuevoRegistro) {
         historial.sort((a, b) => a.time - b.time);
         if (nuevoRegistro.time < historial[historial.length - 1].time) {
             historial[historial.length - 1] = nuevoRegistro;
-        } else {
-            historial.push(nuevoRegistro);
         }
-        historial.sort((a, b) => a.time - b.time);
-    }
-    else {
+    } else {
         historial.push(nuevoRegistro);
-        historial.sort((a, b) => a.time - b.time);
     }
-    return historial
+    historial.sort((a, b) => a.time - b.time);
+    return historial.slice(0, maxLista);
 }
 
 

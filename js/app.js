@@ -61,7 +61,13 @@ function iniciarTiempo(){
 
     if(tiempo == 0){
         clearInterval(tiempoRestanteId);
-        alert("Perdiste!");
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "😢¡Has perdido!😢",
+            showConfirmButton: false,
+            timer: 1500
+        });
     }
 
     },1000)
@@ -96,8 +102,10 @@ function voltear(carta) {
 function comparacion() {
     if (primerResultado === segundoResultado) {
         aciertos++;
+        tarjeta1.disabled = true;
+        tarjeta2.disabled = true;
         mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`;
-        if (aciertos === 1) {
+        if (aciertos === 3) {
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -109,7 +117,7 @@ function comparacion() {
             const userName = localStorage.getItem('user');
             if (userName) {
                 let historial = JSON.parse(localStorage.getItem('historial')) || [];
-                historial = actualizarHistorial(historial, { name: userName, score: aciertos, time: tiempo });
+                historial = actualizarHistorial(historial, { name: userName, score: aciertos, time: 30 - tiempo });
                 // historial.push({ name: userName, score: aciertos, time: tiempo });
                 // if (historial.length > maxLista) {
                 //     historial.shift();
@@ -118,7 +126,9 @@ function comparacion() {
                 localStorage.setItem('historial', JSON.stringify(historial));
                 
                 mostrarHistorial()
+                
             }
+            btnReinicio()
         }
     } else {
         tarjeta1.innerHTML = '';
@@ -144,14 +154,19 @@ function mostrarHistorial() {
 }
 
 function actualizarHistorial(historial, nuevoRegistro) {
-    historial.sort((a,b)=> a.time - b.time);
-    if (nuevoRegistro.time < historial[historial.length-1].time || historial.length > 5) {
-        historial[historial.length-1] = nuevoRegistro;
-    } else {
-        historial.push (nuevoRegistro);
+    if (historial.length >= maxLista) {
+        historial.sort((a, b) => a.time - b.time);
+        if (nuevoRegistro.time < historial[historial.length - 1].time) {
+            historial[historial.length - 1] = nuevoRegistro;
+        } else {
+            historial.push(nuevoRegistro);
+        }
+        historial.sort((a, b) => a.time - b.time);
     }
-    historial.sort((a,b)=> a.time - b.time);
-    return historial
+    else {
+        historial.push(nuevoRegistro);
+        historial.sort((a, b))
+    }
 }
 
 

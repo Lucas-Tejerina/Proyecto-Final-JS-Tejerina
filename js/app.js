@@ -105,7 +105,7 @@ function comparacion() {
         tarjeta1.disabled = true;
         tarjeta2.disabled = true;
         mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`;
-        if (aciertos === 3) {
+        if (aciertos === 6) {
             Swal.fire({
                 position: "center",
                 icon: "success",

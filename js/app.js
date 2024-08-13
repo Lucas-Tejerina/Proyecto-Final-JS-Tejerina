@@ -5,6 +5,8 @@ fetch("./../data/data.json")
 .then(data=> tarjetas = data.sort(() => Math.random() - 0.5))
 .catch(()=> console.log("error al conseguir los datos"))
 
+/*Variables*/
+
 let tarjetaVolteada = 0;
 let tarjeta1 = null;
 let tarjeta2 = null;
@@ -24,13 +26,15 @@ document.getElementById('btn-reinicio').addEventListener('click', btnReinicio);
 
 mostrarHistorial();
 
+/* Boton de Reinicio */
+
 function btnReinicio() {
     tarjetas = tarjetas.sort(() => Math.random() - 0.5);
-
     const cardVolteadas = document.querySelectorAll('.card');
     cardVolteadas.forEach(card => {
         card.innerHTML = '';
         card.disabled = false;
+        card.style.pointerEvents = 'unset'
     });
 
     tarjetaVolteada = 0;
@@ -47,12 +51,42 @@ function btnReinicio() {
     mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`;
 }
 
+/*Voltear Cartas */
 
 cardVolteadas.forEach(card => {
     card.addEventListener('click', function() {
         voltear(this);
     });
 });
+
+function voltear(carta) {
+
+    if(temporizador == false){
+        iniciarTiempo();
+        temporizador = true;
+    }
+
+    const id = carta.id;
+
+    if (tarjetaVolteada === 0) {
+        tarjetaVolteada = 1;
+        tarjeta1 = carta;
+        primerResultado = tarjetas[id];
+        tarjeta1.innerHTML = `<img src="${primerResultado}" alt="Imagen 1">`;
+        tarjeta1.disabled = true;
+        tarjeta1.style.pointerEvents = 'none';
+    } else if (tarjetaVolteada === 1) {
+        tarjetaVolteada = 2;
+        tarjeta2 = carta;
+        segundoResultado = tarjetas[id];
+        tarjeta2.innerHTML = `<img src="${segundoResultado}" alt="Imagen 2">`;
+        tarjeta2.disabled = true;
+        tarjeta2.style.pointerEvents = 'none';
+        setTimeout(comparacion, 800);
+    }
+}
+
+/* Inicio del tiempo */
 
 function iniciarTiempo(){
     tiempoRestanteId = setInterval(()=>{
@@ -73,37 +107,11 @@ function iniciarTiempo(){
     },1000)
 }
 
-function voltear(carta) {
-
-    if(temporizador == false){
-        iniciarTiempo();
-        temporizador = true;
-    }
-
-    const id = carta.id;
-
-    if (tarjetaVolteada === 0) {
-        tarjetaVolteada = 1;
-        tarjeta1 = carta;
-        primerResultado = tarjetas[id];
-        tarjeta1.innerHTML = `<img src="${primerResultado}" alt="Imagen 1">`;
-        tarjeta1.disabled = true;
-    } else if (tarjetaVolteada === 1) {
-        tarjetaVolteada = 2;
-        tarjeta2 = carta;
-        segundoResultado = tarjetas[id];
-        tarjeta2.innerHTML = `<img src="${segundoResultado}" alt="Imagen 2">`;
-        tarjeta2.disabled = true;
-
-        setTimeout(comparacion, 800);
-    }
-}
+/* Comparacion de las cartas */
 
 function comparacion() {
     if (primerResultado === segundoResultado) {
         aciertos++;
-        tarjeta1.disabled = true;
-        tarjeta2.disabled = true;
         mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`;
         if (aciertos === 6) {
             Swal.fire({
@@ -118,16 +126,12 @@ function comparacion() {
             if (userName) {
                 let historial = JSON.parse(localStorage.getItem('historial')) || [];
                 historial = actualizarHistorial(historial, { name: userName, score: aciertos, time: 30 - tiempo });
-                // historial.push({ name: userName, score: aciertos, time: tiempo });
-                // if (historial.length > maxLista) {
-                //     historial.shift();
-
-                // }
                 localStorage.setItem('historial', JSON.stringify(historial));
                 
                 mostrarHistorial()
                 
             }
+
             btnReinicio()
         }
     } else {
@@ -135,10 +139,16 @@ function comparacion() {
         tarjeta2.innerHTML = '';
         tarjeta1.disabled = false;
         tarjeta2.disabled = false;
+        tarjeta1.style.pointerEvents = 'unset'
+        tarjeta2.style.pointerEvents = 'unset'
+
     }
 
     tarjetaVolteada = 0;
 }
+
+
+/* Historial de jugadores*/
 
 function mostrarHistorial() {
     const ulElement = document.querySelector('section.sect2 ul');
@@ -148,7 +158,7 @@ function mostrarHistorial() {
 
     historial.forEach(entry => {
         const li = document.createElement('li');
-        li.textContent = `Felicitaciones: ${entry.name}, lo lograste en: ${entry.time} seg`;
+        li.textContent = `¡Felicitaciones, ${entry.name}! Lo lograste en: ${entry.time} seg`;
         ulElement.appendChild(li);
     });
 }
@@ -165,8 +175,9 @@ function actualizarHistorial(historial, nuevoRegistro) {
     }
     else {
         historial.push(nuevoRegistro);
-        historial.sort((a, b))
+        historial.sort((a, b) => a.time - b.time);
     }
+    return historial
 }
 
 

@@ -3,6 +3,8 @@ if(btnLogin){
     btnLogin.addEventListener('click', redireccionar);
 }
 
+/*Redireccion al juego*/
+
 function redireccionar() {
     const userInput = document.getElementById('user').value.trim();
 

@@ -22,6 +22,8 @@ const cardVolteadas = document.querySelectorAll('.card');
 
 document.getElementById('btn-reinicio').addEventListener('click', btnReinicio);
 
+mostrarHistorial();
+
 function btnReinicio() {
     tarjetas = tarjetas.sort(() => Math.random() - 0.5);
 
@@ -95,17 +97,26 @@ function comparacion() {
     if (primerResultado === segundoResultado) {
         aciertos++;
         mostrarAciertos.innerHTML = `Aciertos: ${aciertos}/6`;
-        if (aciertos === 6) {
-            alert("Victoria");
+        if (aciertos === 1) {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "✨¡Felicitaciones, has ganado!✨",
+                showConfirmButton: false,
+                timer: 1500
+            });
             clearInterval(tiempoRestanteId);
-            const userName = sessionStorage.getItem('user');
+            const userName = localStorage.getItem('user');
             if (userName) {
-                let historial = JSON.parse(sessionStorage.getItem('historial')) || [];
-                historial.push({ name: userName, score: aciertos, time: tiempo });
-                if (historial.length > maxLista) {
-                    historial.shift();
-                }
-                sessionStorage.setItem('historial', JSON.stringify(historial));
+                let historial = JSON.parse(localStorage.getItem('historial')) || [];
+                historial = actualizarHistorial(historial, { name: userName, score: aciertos, time: tiempo });
+                // historial.push({ name: userName, score: aciertos, time: tiempo });
+                // if (historial.length > maxLista) {
+                //     historial.shift();
+
+                // }
+                localStorage.setItem('historial', JSON.stringify(historial));
+                
                 mostrarHistorial()
             }
         }
@@ -122,7 +133,7 @@ function comparacion() {
 function mostrarHistorial() {
     const ulElement = document.querySelector('section.sect2 ul');
 
-    let historial = JSON.parse(sessionStorage.getItem('historial')) || [];
+    let historial = JSON.parse(localStorage.getItem('historial')) || [];
     ulElement.innerHTML = '';
 
     historial.forEach(entry => {
@@ -130,6 +141,17 @@ function mostrarHistorial() {
         li.textContent = `Felicitaciones: ${entry.name}, lo lograste en: ${entry.time} seg`;
         ulElement.appendChild(li);
     });
+}
+
+function actualizarHistorial(historial, nuevoRegistro) {
+    historial.sort((a,b)=> a.time - b.time);
+    if (nuevoRegistro.time < historial[historial.length-1].time || historial.length > 5) {
+        historial[historial.length-1] = nuevoRegistro;
+    } else {
+        historial.push (nuevoRegistro);
+    }
+    historial.sort((a,b)=> a.time - b.time);
+    return historial
 }
 
 

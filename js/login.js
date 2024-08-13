@@ -1,26 +1,41 @@
-document.getElementById('login').addEventListener('click', redireccionar);
+const btnLogin = document.getElementById('login');
+if(btnLogin){
+    btnLogin.addEventListener('click', redireccionar);
+}
 
 function redireccionar() {
     const userInput = document.getElementById('user').value.trim();
 
     if (userInput === "") {
-        alert("Por favor ingresa un nombre válido");
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "😪 Ingresa un nombre valido, por favor 😪",
+            showConfirmButton: false,
+            timer: 1500
+        });
         return;
     }
 
     for (let i = 0; i < userInput.length; i++) {
         const verificacion = userInput[i];
         if (!isNaN(verificacion) && verificacion !== ' ') {
-            alert("El nombre solo debe contener letras");
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "😪 Ingresa un nombre valido, por favor 😪",
+                showConfirmButton: false,
+                timer: 1500
+            });
             return;
         }
     }
-    let names = JSON.parse(sessionStorage.getItem('names')) || [];
+    let names = JSON.parse(localStorage.getItem('names')) || [];
+    localStorage.setItem('user', userInput);
     names.push(userInput);
-    sessionStorage.setItem('names', JSON.stringify(names));
+    localStorage.setItem('names', JSON.stringify(names));
     window.location.href = "/pages/juego.html";
 }
-
 
 
 

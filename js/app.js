@@ -30,7 +30,6 @@ mostrarHistorial();
 
 function btnReinicio() {
     tarjetas = tarjetas.sort(() => Math.random() - 0.5);
-    const cardVolteadas = document.querySelectorAll('.card');
     cardVolteadas.forEach(card => {
         card.innerHTML = '';
         card.disabled = false;
@@ -103,7 +102,6 @@ function iniciarTiempo(){
             timer: 1500
         });
     }
-
     },1000)
 }
 
@@ -151,7 +149,7 @@ function comparacion() {
 /* Historial de jugadores*/
 
 function mostrarHistorial() {
-    const ulElement = document.querySelector('section.sect2 ul');
+    const ulElement = document.querySelector('.section__scores ul');
 
     let historial = JSON.parse(localStorage.getItem('historial')) || [];
     ulElement.innerHTML = '';

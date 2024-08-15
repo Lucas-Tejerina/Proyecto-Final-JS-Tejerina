@@ -1,9 +1,9 @@
-let tarjetas = []
+let tarjetas = [];
 
 fetch("./../data/data.json")
-.then((data)=>data.json())
-.then(data=> tarjetas = data.sort(() => Math.random() - 0.5))
-.catch(()=> console.log("error al conseguir los datos"))
+    .then((data) => data.json())
+    .then((data) => (tarjetas = data.sort(() => Math.random() - 0.5)))
+    .catch(() => console.log("error al conseguir los datos"));
 
 /*Variables*/
 
@@ -18,11 +18,11 @@ let temporizador = false;
 let tiempoRestanteId = null;
 const maxLista = 5;
 
-let mostrarAciertos = document.getElementById('aciertos');
-let mostrarTiempo = document.getElementById('time');
-const cardVolteadas = document.querySelectorAll('.card');
+let mostrarAciertos = document.getElementById("aciertos");
+let mostrarTiempo = document.getElementById("time");
+const cardVolteadas = document.querySelectorAll(".card");
 
-document.getElementById('reset').addEventListener('click', reset);
+document.getElementById("reset").addEventListener("click", reset);
 
 mostrarHistorial();
 
@@ -30,10 +30,10 @@ mostrarHistorial();
 
 function reset() {
     tarjetas = tarjetas.sort(() => Math.random() - 0.5);
-    cardVolteadas.forEach(card => {
-        card.innerHTML = '';
+    cardVolteadas.forEach((card) => {
+        card.innerHTML = "";
         card.disabled = false;
-        card.style.pointerEvents = 'unset'
+        card.style.pointerEvents = "unset";
     });
     tarjetaVolteada = 0;
     tarjeta1 = null;
@@ -50,14 +50,14 @@ function reset() {
 
 /*Voltear Cartas */
 
-cardVolteadas.forEach(card => {
-    card.addEventListener('click', function() {
+cardVolteadas.forEach((card) => {
+    card.addEventListener("click", function () {
         voltear(this);
     });
 });
 
 function voltear(carta) {
-    if(temporizador == false){
+    if (temporizador == false) {
         iniciarTiempo();
         temporizador = true;
     }
@@ -68,35 +68,35 @@ function voltear(carta) {
         primerResultado = tarjetas[id];
         tarjeta1.innerHTML = `<img src="${primerResultado}" alt="Imagen 1">`;
         tarjeta1.disabled = true;
-        tarjeta1.style.pointerEvents = 'none';
+        tarjeta1.style.pointerEvents = "none";
     } else if (tarjetaVolteada === 1) {
         tarjetaVolteada = 2;
         tarjeta2 = carta;
         segundoResultado = tarjetas[id];
         tarjeta2.innerHTML = `<img src="${segundoResultado}" alt="Imagen 2">`;
         tarjeta2.disabled = true;
-        tarjeta2.style.pointerEvents = 'none';
+        tarjeta2.style.pointerEvents = "none";
         setTimeout(comparacion, 400);
     }
 }
 
 /* Inicio del tiempo */
 
-function iniciarTiempo(){
-    tiempoRestanteId = setInterval(()=>{
-    tiempo--;
-    mostrarTiempo.innerHTML = `Tiempo: ${tiempo} seg.`;
-    if(tiempo == 0){
-        clearInterval(tiempoRestanteId);
-        Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "😢¡Has perdido!😢",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    }
-    },1000)
+function iniciarTiempo() {
+    tiempoRestanteId = setInterval(() => {
+        tiempo--;
+        mostrarTiempo.innerHTML = `Tiempo: ${tiempo} seg.`;
+        if (tiempo == 0) {
+            clearInterval(tiempoRestanteId);
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "😢¡Has perdido!😢",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
+    }, 1000);
 }
 
 /* Comparacion de las cartas */
@@ -111,25 +111,30 @@ function comparacion() {
                 icon: "success",
                 title: "✨¡Felicitaciones, ganaste!✨",
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1500,
             });
             clearInterval(tiempoRestanteId);
-            const userName = localStorage.getItem('user');
+            const userName = localStorage.getItem("user");
             if (userName) {
-                let historial = JSON.parse(localStorage.getItem('historial')) || [];
-                historial = actualizarHistorial(historial, { name: userName, score: aciertos, time: 30 - tiempo });
-                localStorage.setItem('historial', JSON.stringify(historial));
-                mostrarHistorial()
+                let historial =
+                    JSON.parse(localStorage.getItem("historial")) || [];
+                historial = actualizarHistorial(historial, {
+                    name: userName,
+                    score: aciertos,
+                    time: 30 - tiempo,
+                });
+                localStorage.setItem("historial", JSON.stringify(historial));
+                mostrarHistorial();
             }
-            reset()
+            reset();
         }
     } else {
-        tarjeta1.innerHTML = '';
-        tarjeta2.innerHTML = '';
+        tarjeta1.innerHTML = "";
+        tarjeta2.innerHTML = "";
         tarjeta1.disabled = false;
         tarjeta2.disabled = false;
-        tarjeta1.style.pointerEvents = 'unset'
-        tarjeta2.style.pointerEvents = 'unset'
+        tarjeta1.style.pointerEvents = "unset";
+        tarjeta2.style.pointerEvents = "unset";
     }
     tarjetaVolteada = 0;
 }
@@ -137,11 +142,11 @@ function comparacion() {
 /* Historial de jugadores*/
 
 function mostrarHistorial() {
-    const ulElement = document.querySelector('.section__scores ul');
-    let historial = JSON.parse(localStorage.getItem('historial')) || [];
-    ulElement.innerHTML = '';
-    historial.slice(0, maxLista).forEach(entry => {
-        const li = document.createElement('li');
+    const ulElement = document.querySelector(".section__scores ul");
+    let historial = JSON.parse(localStorage.getItem("historial")) || [];
+    ulElement.innerHTML = "";
+    historial.slice(0, maxLista).forEach((entry) => {
+        const li = document.createElement("li");
         li.textContent = `${entry.name} tardó ${entry.time} seg`;
         ulElement.appendChild(li);
     });
@@ -159,18 +164,3 @@ function actualizarHistorial(historial, nuevoRegistro) {
     historial.sort((a, b) => a.time - b.time);
     return historial.slice(0, maxLista);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
